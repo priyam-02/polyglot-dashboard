@@ -21,14 +21,14 @@ export default function MetricCard({ title, value, description, percentage }: Me
   const colorClass = getColorClass(percentage);
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200 hover:shadow-lg transition-shadow">
+    <div className="glass rounded-2xl shadow-lg p-6 border border-white/20 card-hover fade-in">
       <div className="flex items-start justify-between">
-        <div>
-          <p className="text-sm font-medium text-gray-600 mb-1">{title}</p>
-          <p className={`text-3xl font-bold ${colorClass}`}>{displayValue}</p>
+        <div className="w-full">
+          <p className="text-xs font-semibold text-gray-600 uppercase tracking-wider mb-2">{title}</p>
+          <p className={`text-4xl font-bold ${colorClass} mb-3`}>{displayValue}</p>
+          <p className="text-xs text-gray-600 leading-relaxed">{description}</p>
         </div>
       </div>
-      <p className="text-xs text-gray-500 mt-3">{description}</p>
     </div>
   );
 }

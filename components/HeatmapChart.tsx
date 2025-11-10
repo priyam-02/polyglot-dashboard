@@ -21,11 +21,11 @@ export default function HeatmapChart({ data }: HeatmapChartProps) {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-      <h3 className="text-lg font-bold text-gray-900 mb-1">
+    <div className="glass rounded-2xl shadow-lg p-8 border border-white/20 card-hover fade-in">
+      <h3 className="text-2xl font-bold text-gray-900 mb-2">
         LLM × Language Performance Heatmap
       </h3>
-      <p className="text-sm text-gray-600 mb-4">
+      <p className="text-sm text-gray-600 mb-6">
         Test pass rate (%) by LLM model and target language
       </p>
       <div className="overflow-x-auto">

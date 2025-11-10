@@ -16,30 +16,33 @@ npm --version
 
 ## 🚀 Quick Start Guide
 
-### Step 1: Extract the ZIP file
-Extract the `polyglot-dashboard.zip` file to your desired location.
-
-### Step 2: Open Terminal/Command Prompt
-Navigate to the extracted folder:
+### Step 1: Clone the Repository
+Clone this repository to your local machine:
 ```bash
+git clone <repository-url>
 cd polyglot-dashboard
 ```
 
-### Step 3: Install Dependencies
-Run the following command to install all required packages:
+Or download as ZIP and extract:
+```bash
+# After downloading ZIP
+unzip polyglot-dashboard.zip
+cd polyglot-dashboard
+```
+
+### Step 2: Install Dependencies
+Install all required packages (this will take 1-2 minutes):
 ```bash
 npm install
 ```
-This will take 1-2 minutes. You'll see a progress bar.
 
-### Step 4: Start the Development Server
-Run:
+### Step 3: Start the Development Server
 ```bash
 npm run dev
 ```
 
-### Step 5: Open in Browser
-Once you see "Ready in XXXXms", open your web browser and go to:
+### Step 4: Open in Browser
+Once you see "Ready in XXXXms", open your web browser and navigate to:
 ```
 http://localhost:3000
 ```
@@ -48,16 +51,18 @@ The dashboard should now be visible! 🎉
 
 ## 🎯 Features
 
-- **4 Interactive Filters**: Language, LLM Model, Prompt Type, and Problem Complexity
+- **4 Interactive Filters**: Language, LLM Model, Prompt Type, and Problem Complexity (sticky on scroll)
 - **Real-time Updates**: All visualizations update instantly when filters change
-- **Key Metrics Cards**: Shows total translations, compilation rate, runtime success, and test pass rate
+- **5 Key Metrics Cards**: Total translations, unique problems, compilation rate, runtime success, and test pass rate
 - **6 Visualizations**:
-  1. LLM Performance Comparison
-  2. Performance by Target Language
-  3. Performance by Problem Complexity
-  4. Performance by Prompt Strategy
+  1. LLM Performance Comparison (bar chart)
+  2. Performance by Complexity Level (line chart)
+  3. Performance by Target Language (bar chart)
+  4. Prompt Strategy Effectiveness (pie chart)
   5. LLM × Language Performance Heatmap
-- **Color-coded Results**: Green (>60%), Orange (30-60%), Red (<30%)
+  6. Key Insights Summary
+- **Color-coded Results**: Green (≥60%), Yellow (30-60%), Red (<30%)
+- **Modern Glass Morphism UI**: Elegant, conference-ready design with smooth animations
 - **Responsive Design**: Works on desktop, tablet, and mobile
 
 ## 📊 Data
@@ -105,41 +110,49 @@ npm install
 ```
 polyglot-dashboard/
 ├── app/
-│   ├── globals.css          # Global styles
-│   ├── layout.tsx           # Root layout
-│   └── page.tsx             # Main dashboard page
+│   ├── globals.css              # Global styles with animations
+│   ├── layout.tsx               # Root layout
+│   └── page.tsx                 # Main dashboard page
 ├── components/
-│   ├── FilterPanel.tsx      # Filter controls
-│   ├── MetricCard.tsx       # Metric display cards
-│   ├── PerformanceChart.tsx # Bar charts
-│   └── HeatmapChart.tsx     # Heatmap visualization
+│   ├── FilterPanel.tsx          # Filter controls (sticky)
+│   ├── MetricCard.tsx           # Metric display cards
+│   ├── LLMPerformanceChart.tsx  # LLM comparison bar chart
+│   ├── ComplexityChart.tsx      # Complexity line chart
+│   ├── LanguageChart.tsx        # Language bar chart
+│   ├── PromptChart.tsx          # Prompt strategy pie chart
+│   └── HeatmapChart.tsx         # Heatmap visualization
 ├── lib/
-│   ├── types.ts             # TypeScript type definitions
-│   └── utils.ts             # Data processing utilities
+│   └── utils.ts                 # Data processing utilities
+├── types/
+│   └── index.ts                 # TypeScript type definitions
 ├── public/
-│   └── benchmark_data.json  # Converted benchmark data
+│   └── benchmark_data.json      # Benchmark data (56K+ translations)
+├── CLAUDE.md                    # Claude Code guidance
+├── DASHBOARD_OVERVIEW.md        # High-level dashboard documentation
 ├── package.json
 └── README.md
 ```
 
 ## 🎨 Customization
 
-### Changing Colors
-Edit `tailwind.config.js` to customize the color scheme:
-```javascript
-theme: {
-  extend: {
-    colors: {
-      success: '#10b981',  // Green for high performance
-      warning: '#f59e0b',  // Orange for moderate
-      danger: '#ef4444',   // Red for low performance
-    },
-  },
+### Changing the Background Gradient
+Edit `app/globals.css`:
+```css
+body {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 ```
 
+### Modifying Chart Colors
+Edit individual chart components in the `components/` directory. For example, in `LLMPerformanceChart.tsx`:
+```tsx
+<Bar dataKey="compileRate" fill="#3b82f6" name="Compile Rate (%)" />
+<Bar dataKey="runtimeSuccessRate" fill="#8b5cf6" name="Runtime Success (%)" />
+<Bar dataKey="testPassRate" fill="#10b981" name="Test Pass Rate (%)" />
+```
+
 ### Adding More Filters
-Edit `app/page.tsx` and `components/FilterPanel.tsx` to add additional filter options.
+Edit `app/page.tsx` and `components/FilterPanel.tsx` to add additional filter dimensions.
 
 ## 🏗️ Building for Production
 
@@ -153,18 +166,21 @@ The production build will be faster and more optimized.
 
 ## 📦 Technologies Used
 
-- **Next.js 16** - React framework
-- **TypeScript** - Type safety
-- **Tailwind CSS** - Styling
-- **Recharts** - Charts and visualizations
-- **xlsx** - Excel file processing
+- **Next.js 16** - React framework with App Router
+- **React 19** - Latest React features
+- **TypeScript 5** - Type safety
+- **Tailwind CSS 3** - Utility-first CSS with custom animations
+- **Recharts 3** - Responsive chart library
+- **Glass Morphism Design** - Modern UI with backdrop blur effects
 
 ## 💡 Tips for Conference Presentation
 
 1. **Full Screen**: Press F11 in your browser for full-screen mode
-2. **Pre-select Filters**: Before presenting, you can pre-filter to show specific results
-3. **Zoom**: Use Ctrl/Cmd + Plus/Minus to adjust zoom level
+2. **Pre-select Filters**: Before presenting, pre-filter to highlight specific findings
+3. **Zoom**: Use Ctrl/Cmd + Plus/Minus to adjust zoom level for better visibility
 4. **Multiple Views**: Open multiple browser tabs with different filter combinations
+5. **Sticky Filters**: Filters remain accessible while scrolling through visualizations
+6. **Interactive Demo**: Use the live filtering during Q&A to answer audience questions in real-time
 
 ## 📧 Support
 

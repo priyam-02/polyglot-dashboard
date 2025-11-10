@@ -19,14 +19,17 @@ export default function LLMPerformanceChart({
   data,
 }: LLMPerformanceChartProps) {
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-      <h3 className="text-lg font-bold text-gray-900 mb-4">
+    <div className="glass rounded-2xl shadow-lg p-8 border border-white/20 card-hover fade-in">
+      <h3 className="text-2xl font-bold text-gray-900 mb-2">
         LLM Performance Comparison
       </h3>
-      <ResponsiveContainer width="100%" height={400}>
+      <p className="text-sm text-gray-600 mb-6">
+        Compile rate, runtime success, and test pass rate by LLM model
+      </p>
+      <ResponsiveContainer width="100%" height={450}>
         <BarChart
           data={data}
-          margin={{ top: 20, right: 20, left: 60, bottom: 80 }}
+          margin={{ top: 20, right: 20, left: 20, bottom: 20 }}
           maxBarSize={100}
         >
           <CartesianGrid strokeDasharray="3 3" />
@@ -46,10 +49,21 @@ export default function LLMPerformanceChart({
             }}
           />
           <Tooltip />
-          <Legend />
+          <Legend
+            verticalAlign="bottom"
+            wrapperStyle={{ paddingTop: "20px" }}
+          />
           <Bar dataKey="compileRate" fill="#3b82f6" name="Compile Rate (%)" />
-          <Bar dataKey="runtimeSuccessRate" fill="#8b5cf6" name="Runtime Success (%)" />
-          <Bar dataKey="testPassRate" fill="#10b981" name="Test Pass Rate (%)" />
+          <Bar
+            dataKey="runtimeSuccessRate"
+            fill="#8b5cf6"
+            name="Runtime Success (%)"
+          />
+          <Bar
+            dataKey="testPassRate"
+            fill="#10b981"
+            name="Test Pass Rate (%)"
+          />
         </BarChart>
       </ResponsiveContainer>
     </div>

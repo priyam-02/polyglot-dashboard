@@ -40,10 +40,10 @@ export default function Dashboard() {
       .then((jsonData: BenchmarkResult[]) => {
         setData(jsonData);
         setLanguages(
-          [...new Set(jsonData.map((d) => d.target_language))].sort()
+          Array.from(new Set(jsonData.map((d) => d.target_language))).sort()
         );
-        setLlms([...new Set(jsonData.map((d) => d.llm))].sort());
-        setPrompts([...new Set(jsonData.map((d) => d.prompt))].sort());
+        setLlms(Array.from(new Set(jsonData.map((d) => d.llm))).sort());
+        setPrompts(Array.from(new Set(jsonData.map((d) => d.prompt))).sort());
         setComplexities(["simple", "moderate", "complex"]);
         setLoading(false);
       })
@@ -73,21 +73,23 @@ export default function Dashboard() {
   const heatmapData = getHeatmapData(filteredData);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <header className="bg-white shadow-md border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 py-6">
+    <div className="min-h-screen">
+      <header className="glass shadow-lg border-b border-white/20">
+        <div className="max-w-7xl mx-auto px-6 py-8">
           <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">
+            <div className="fade-in">
+              <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
                 Polyglot Benchmark Dashboard
               </h1>
-              <p className="text-gray-600 mt-1">
+              <p className="text-gray-700 mt-2 text-lg">
                 Code Translation Performance Analysis: C → Python/Java/Rust
               </p>
             </div>
-            <div className="text-right">
-              <p className="text-sm text-gray-600">Total Translations</p>
-              <p className="text-2xl font-bold text-blue-600">
+            <div className="text-right fade-in">
+              <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">
+                Total Translations
+              </p>
+              <p className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
                 {data.length.toLocaleString()}
               </p>
             </div>
@@ -95,8 +97,8 @@ export default function Dashboard() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 py-8">
-        <div className="sticky top-0 z-10 mb-8 pb-1 pt-1 bg-gradient-to-br from-blue-50 to-indigo-100 border-b border-gray-300/50">
+      <main className="max-w-7xl mx-auto px-6 py-10">
+        <div className="sticky top-0 z-10 mb-10 glass rounded-xl shadow-lg border border-white/20">
           <FilterPanel
             filters={filters}
             onFilterChange={setFilters}
@@ -150,9 +152,11 @@ export default function Dashboard() {
           <HeatmapChart data={heatmapData} />
         </div>
 
-        <div className="mt-8 bg-white rounded-lg shadow-md p-6 border border-gray-200">
-          <h3 className="text-lg font-bold text-gray-900 mb-4">Key Insights</h3>
-          <div className="space-y-3">
+        <div className="mt-10 glass rounded-2xl shadow-lg p-8 border border-white/20 fade-in">
+          <h3 className="text-2xl font-bold text-gray-900 mb-6">
+            Key Insights
+          </h3>
+          <div className="space-y-4">
             {llmPerformance.length > 0 && (
               <div className="flex items-start">
                 <span className="inline-block w-2 h-2 bg-green-500 rounded-full mt-2 mr-3"></span>
@@ -195,12 +199,17 @@ export default function Dashboard() {
         </div>
       </main>
 
-      <footer className="bg-white border-t border-gray-200 mt-12">
-        <div className="max-w-7xl mx-auto px-4 py-6 text-center text-gray-600 text-sm">
-          <p>Polyglot Benchmark Results Dashboard</p>
-          <p className="mt-1">
+      <footer className="glass border-t border-white/20 mt-16">
+        <div className="max-w-7xl mx-auto px-6 py-8 text-center">
+          <p className="text-gray-700 font-semibold text-lg">
+            Polyglot Benchmark Results Dashboard
+          </p>
+          <p className="mt-2 text-gray-600">
             Data from {data.length.toLocaleString()} code translations across 7
             LLMs
+          </p>
+          <p className="mt-4 text-xs text-gray-500">
+            Built with Next.js, React, and Recharts
           </p>
         </div>
       </footer>

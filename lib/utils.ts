@@ -132,6 +132,7 @@ export function getPromptPerformance(data: BenchmarkResult[]) {
       return {
         name: formatPromptName(name),
         compileRate: metrics.compileRate,
+        runtimeSuccessRate: metrics.runtimeSuccessRate,
         testPassRate: metrics.testPassRate,
         count: items.length,
       };

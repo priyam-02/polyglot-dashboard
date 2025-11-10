@@ -49,12 +49,12 @@ export default function FilterPanel({
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-      <div className="flex items-center justify-between mb-4">
+    <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-md p-6 border border-white/30">
+      <div className="flex items-center justify-between mb-5">
         <h2 className="text-xl font-bold text-gray-900">Filters</h2>
         <button
           onClick={handleReset}
-          className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+          className="text-sm text-purple-600 hover:text-purple-800 font-semibold transition-colors px-4 py-2 rounded-lg hover:bg-purple-50"
         >
           Reset All
         </button>
