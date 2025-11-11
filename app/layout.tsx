@@ -1,7 +1,7 @@
 import './globals.css'
 
 export const metadata = {
-  title: 'Polyglot Benchmark Dashboard',
+  title: 'LLM Code Translation Dashboard',
   description: 'Interactive dashboard for code translation benchmark results',
 }
 
