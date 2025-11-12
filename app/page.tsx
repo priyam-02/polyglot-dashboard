@@ -219,46 +219,60 @@ export default function Dashboard() {
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
-          <MetricCard
-            title="Total Translations"
-            value={metrics.totalTranslations.toLocaleString()}
-            description="Total number of code translations in filtered dataset"
-          />
-          <MetricCard
-            title="Unique Problems"
-            value={metrics.uniqueProblems.toLocaleString()}
-            description="Number of unique problems in filtered dataset"
-          />
-          <MetricCard
-            title="Compilation Success"
-            value={`${metrics.compileRate}%`}
-            percentage={metrics.compileRate}
-            description="Percentage of translations that compiled successfully"
-          />
-          <MetricCard
-            title="Runtime Success"
-            value={`${metrics.runtimeSuccessRate}%`}
-            percentage={metrics.runtimeSuccessRate}
-            description="Percentage of translations that ran without errors"
-          />
-          <MetricCard
-            title="Test Pass Rate"
-            value={`${metrics.testPassRate}%`}
-            percentage={metrics.testPassRate}
-            description="Percentage of translations that passed all tests"
-          />
+        <div className="mb-8 space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <MetricCard
+              title="Total Translations"
+              value={metrics.totalTranslations.toLocaleString()}
+              description="Total number of code translations in filtered dataset"
+            />
+            <MetricCard
+              title="Unique Problems"
+              value={metrics.uniqueProblems.toLocaleString()}
+              description="Number of unique problems in filtered dataset"
+            />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <MetricCard
+              title="Fail Compilation"
+              value={`${metrics.compileFailRate}%`}
+              percentage={metrics.compileFailRate}
+              isFailureMetric={true}
+              description="Percentage of translations that failed to compile"
+            />
+            <MetricCard
+              title="Fail Running"
+              value={`${metrics.runtimeFailRate}%`}
+              percentage={metrics.runtimeFailRate}
+              isFailureMetric={true}
+              description="Percentage of translations that failed during runtime"
+            />
+            <MetricCard
+              title="Fail Test"
+              value={`${metrics.testFailRate}%`}
+              percentage={metrics.testFailRate}
+              isFailureMetric={true}
+              description="Percentage of translations that failed tests"
+            />
+            <MetricCard
+              title="Test Pass Rate"
+              value={`${metrics.testPassRate}%`}
+              percentage={metrics.testPassRate}
+              isFailureMetric={false}
+              description="Percentage of translations that passed all tests"
+            />
+          </div>
         </div>
 
         <div className="space-y-8">
-          <LLMPerformanceChart data={llmPerformance} />
+          <LLMPerformanceChart data={llmPerformance} filters={filters} />
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <ComplexityChart data={complexityPerformance} />
-            <LanguageChart data={languagePerformance} />
+            <LanguageChart data={languagePerformance} filters={filters} />
           </div>
 
-          <PromptChart data={promptPerformance} />
+          <PromptChart data={promptPerformance} filters={filters} />
           <HeatmapChart data={heatmapData} />
         </div>
       </main>

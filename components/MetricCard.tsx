@@ -6,19 +6,27 @@ interface MetricCardProps {
   description: string;
   color?: string;
   percentage?: number;
+  isFailureMetric?: boolean; // New prop to indicate if this is a failure metric
 }
 
-export default function MetricCard({ title, value, description, percentage }: MetricCardProps) {
+export default function MetricCard({ title, value, description, percentage, isFailureMetric = false }: MetricCardProps) {
   const displayValue = typeof value === 'number' ? value.toLocaleString() : value;
 
-  const getColorClass = (pct: number | undefined) => {
+  const getColorClass = (pct: number | undefined, isFailure: boolean) => {
     if (pct === undefined) return 'text-gray-900';
+
+    // For failure metrics: always use neutral gray (no color coding)
+    if (isFailure) {
+      return 'text-gray-900';
+    }
+
+    // For success metrics: higher is better (normal colors)
     if (pct >= 60) return 'text-green-600';
     if (pct >= 30) return 'text-yellow-600';
     return 'text-red-600';
   };
 
-  const colorClass = getColorClass(percentage);
+  const colorClass = getColorClass(percentage, isFailureMetric);
 
   return (
     <div className="glass rounded-2xl shadow-lg p-6 border border-white/20 card-hover fade-in">

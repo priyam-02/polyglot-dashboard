@@ -21,16 +21,19 @@ export function calculateMetrics(data: BenchmarkResult[]) {
     return {
       totalTranslations: 0,
       uniqueProblems: 0,
-      compileRate: 0,
-      runtimeSuccessRate: 0,
+      compileFailRate: 0,
+      runtimeFailRate: 0,
+      testFailRate: 0,
       testPassRate: 0,
     };
   }
 
-  const compileRate =
-    (data.filter((d) => d.compiles).length / data.length) * 100;
-  const runtimeSuccessRate =
-    (data.filter((d) => !d.runtime_error).length / data.length) * 100;
+  const compileFailRate =
+    (data.filter((d) => !d.compiles).length / data.length) * 100;
+  const runtimeFailRate =
+    (data.filter((d) => d.runtime_error).length / data.length) * 100;
+  const testFailRate =
+    (data.filter((d) => d.compiles && !d.runtime_error && !d.passes_tests).length / data.length) * 100;
   const testPassRate =
     (data.filter((d) => d.passes_tests).length / data.length) * 100;
   const uniqueProblems = Array.from(new Set(data.map((d) => d.problem))).length;
@@ -38,8 +41,9 @@ export function calculateMetrics(data: BenchmarkResult[]) {
   return {
     totalTranslations: data.length,
     uniqueProblems,
-    compileRate: Math.round(compileRate * 100) / 100,
-    runtimeSuccessRate: Math.round(runtimeSuccessRate * 100) / 100,
+    compileFailRate: Math.round(compileFailRate * 100) / 100,
+    runtimeFailRate: Math.round(runtimeFailRate * 100) / 100,
+    testFailRate: Math.round(testFailRate * 100) / 100,
     testPassRate: Math.round(testPassRate * 100) / 100,
   };
 }
@@ -59,8 +63,9 @@ export function getLLMPerformance(data: BenchmarkResult[]) {
       const metrics = calculateMetrics(items);
       return {
         name: formatLLMName(name),
-        compileRate: metrics.compileRate,
-        runtimeSuccessRate: metrics.runtimeSuccessRate,
+        compileFailRate: metrics.compileFailRate,
+        runtimeFailRate: metrics.runtimeFailRate,
+        testFailRate: metrics.testFailRate,
         testPassRate: metrics.testPassRate,
         count: items.length,
       };
@@ -84,8 +89,9 @@ export function getComplexityPerformance(data: BenchmarkResult[]) {
     const metrics = calculateMetrics(items);
     return {
       name: complexity.charAt(0).toUpperCase() + complexity.slice(1),
-      compileRate: metrics.compileRate,
-      runtimeSuccessRate: metrics.runtimeSuccessRate,
+      compileFailRate: metrics.compileFailRate,
+      runtimeFailRate: metrics.runtimeFailRate,
+      testFailRate: metrics.testFailRate,
       testPassRate: metrics.testPassRate,
       count: items.length,
     };
@@ -107,8 +113,9 @@ export function getLanguagePerformance(data: BenchmarkResult[]) {
       const metrics = calculateMetrics(items);
       return {
         name: name.charAt(0).toUpperCase() + name.slice(1),
-        compileRate: metrics.compileRate,
-        runtimeSuccessRate: metrics.runtimeSuccessRate,
+        compileFailRate: metrics.compileFailRate,
+        runtimeFailRate: metrics.runtimeFailRate,
+        testFailRate: metrics.testFailRate,
         testPassRate: metrics.testPassRate,
         count: items.length,
       };
@@ -131,8 +138,9 @@ export function getPromptPerformance(data: BenchmarkResult[]) {
       const metrics = calculateMetrics(items);
       return {
         name: formatPromptName(name),
-        compileRate: metrics.compileRate,
-        runtimeSuccessRate: metrics.runtimeSuccessRate,
+        compileFailRate: metrics.compileFailRate,
+        runtimeFailRate: metrics.runtimeFailRate,
+        testFailRate: metrics.testFailRate,
         testPassRate: metrics.testPassRate,
         count: items.length,
       };

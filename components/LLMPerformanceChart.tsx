@@ -10,21 +10,26 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import { Filters } from "@/types";
 
 interface LLMPerformanceChartProps {
   data: any[];
+  filters: Filters;
 }
 
 export default function LLMPerformanceChart({
   data,
+  filters,
 }: LLMPerformanceChartProps) {
+  const showSortingNote = filters.llm === "all";
+
   return (
     <div className="glass rounded-2xl shadow-lg p-8 border border-white/20 card-hover fade-in">
       <h3 className="text-2xl font-bold text-gray-900 mb-2">
         LLM Performance Comparison
       </h3>
       <p className="text-sm text-gray-600 mb-6">
-        Compile rate, runtime success, and test pass rate by LLM model
+        Compilation failures, runtime failures, test failures, and test pass rate by LLM model.{showSortingNote && <span className="italic"> Sorted by test pass rate (best to worst).</span>}
       </p>
       <ResponsiveContainer width="100%" height={450}>
         <BarChart
@@ -43,7 +48,7 @@ export default function LLMPerformanceChart({
           />
           <YAxis
             label={{
-              value: "Success Rate (%)",
+              value: "Rate (%)",
               angle: -90,
               position: "insideLeft",
             }}
@@ -53,11 +58,16 @@ export default function LLMPerformanceChart({
             verticalAlign="bottom"
             wrapperStyle={{ paddingTop: "20px" }}
           />
-          <Bar dataKey="compileRate" fill="#3b82f6" name="Compile Rate (%)" />
+          <Bar dataKey="compileFailRate" fill="#ef4444" name="Fail Compilation (%)" />
           <Bar
-            dataKey="runtimeSuccessRate"
-            fill="#8b5cf6"
-            name="Runtime Success (%)"
+            dataKey="runtimeFailRate"
+            fill="#f97316"
+            name="Fail Running (%)"
+          />
+          <Bar
+            dataKey="testFailRate"
+            fill="#f59e0b"
+            name="Fail Test (%)"
           />
           <Bar
             dataKey="testPassRate"
