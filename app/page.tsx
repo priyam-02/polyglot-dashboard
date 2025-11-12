@@ -44,13 +44,29 @@ export default function Dashboard() {
   const [complexities, setComplexities] = useState<string[]>([]);
 
   useEffect(() => {
-    // Load both benchmark data and static metrics in parallel
+    // Load both benchmark data and static metrics in parallel from API routes
     Promise.all([
-      fetch("/benchmark_data.json").then((res) => res.json()),
-      fetch("/static_metrics.json").then((res) => res.json()),
+      fetch("/api/benchmark-data").then((res) => res.json()),
+      fetch("/api/static-metrics").then((res) => res.json()),
     ])
       .then(
-        ([benchmarkData, metricsData]: [BenchmarkResult[], StaticMetric[]]) => {
+        ([benchmarkResponse, metricsResponse]) => {
+          // Extract data from API response
+          const benchmarkData: BenchmarkResult[] = benchmarkResponse.data;
+          const metricsData: StaticMetric[] = metricsResponse.data;
+
+          // Log data source for debugging
+          console.log('Benchmark data source:', benchmarkResponse.source);
+          console.log('Static metrics source:', metricsResponse.source);
+
+          // Show warning if using fallback data
+          if (benchmarkResponse.source === 'fallback-json') {
+            console.warn('⚠️ Using fallback benchmark data:', benchmarkResponse.warning);
+          }
+          if (metricsResponse.source === 'fallback-json') {
+            console.warn('⚠️ Using fallback metrics data:', metricsResponse.warning);
+          }
+
           setData(benchmarkData);
           setStaticMetrics(metricsData);
           setLanguages(

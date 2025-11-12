@@ -1,0 +1,57 @@
+import { NextResponse } from 'next/server';
+import { fetchBenchmarkData } from '@/lib/google-sheets';
+import { promises as fs } from 'fs';
+import path from 'path';
+
+export const dynamic = 'force-dynamic'; // Disable caching for fresh data
+
+export async function GET() {
+  try {
+    // Try to fetch from Google Sheets
+    console.log('Attempting to fetch benchmark data from Google Sheets...');
+    const data = await fetchBenchmarkData();
+
+    console.log(`Successfully fetched ${data.length} records from Google Sheets`);
+
+    return NextResponse.json({
+      data: data,
+      source: 'google-sheets',
+      timestamp: new Date().toISOString(),
+      count: data.length,
+    });
+  } catch (error) {
+    // Fallback to local JSON file
+    console.error('Google Sheets fetch failed, falling back to local JSON:', error);
+
+    try {
+      const filePath = path.join(process.cwd(), 'public', 'benchmark_data.json');
+      const fileContents = await fs.readFile(filePath, 'utf8');
+      const fallbackData = JSON.parse(fileContents);
+
+      console.log(`Successfully loaded ${fallbackData.length} records from fallback JSON`);
+
+      return NextResponse.json({
+        data: fallbackData,
+        source: 'fallback-json',
+        timestamp: new Date().toISOString(),
+        count: fallbackData.length,
+        warning: 'Using cached data due to Google Sheets API error',
+        error: error instanceof Error ? error.message : 'Unknown error',
+      });
+    } catch (fallbackError) {
+      // If even fallback fails, return error
+      console.error('Fallback JSON also failed:', fallbackError);
+
+      return NextResponse.json(
+        {
+          error: 'Failed to fetch data from both Google Sheets and fallback JSON',
+          details: {
+            googleSheetsError: error instanceof Error ? error.message : 'Unknown error',
+            fallbackError: fallbackError instanceof Error ? fallbackError.message : 'Unknown error',
+          },
+        },
+        { status: 500 }
+      );
+    }
+  }
+}
