@@ -7,6 +7,8 @@ interface FilterPanelProps {
   llms: string[];
   prompts: string[];
   complexities: string[];
+  sourceLanguages: string[];
+  versions: number[];
 }
 
 export default function FilterPanel({
@@ -16,6 +18,8 @@ export default function FilterPanel({
   llms,
   prompts,
   complexities,
+  sourceLanguages,
+  versions,
 }: FilterPanelProps) {
   const handleReset = () => {
     onFilterChange({
@@ -23,6 +27,8 @@ export default function FilterPanel({
       llm: "all",
       prompt: "all",
       complexity: "all",
+      sourceLanguage: "all",
+      version: "all",
     });
   };
 
@@ -60,7 +66,27 @@ export default function FilterPanel({
         </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Source Language
+          </label>
+          <select
+            value={filters.sourceLanguage}
+            onChange={(e) =>
+              onFilterChange({ ...filters, sourceLanguage: e.target.value })
+            }
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+          >
+            <option value="all">All Source Languages</option>
+            {sourceLanguages.map((lang) => (
+              <option key={lang} value={lang}>
+                {lang.toUpperCase()}
+              </option>
+            ))}
+          </select>
+        </div>
+
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Target Language
@@ -136,6 +162,28 @@ export default function FilterPanel({
             {complexities.map((complexity) => (
               <option key={complexity} value={complexity}>
                 {complexity.charAt(0).toUpperCase() + complexity.slice(1)}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Data Version
+          </label>
+          <select
+            value={filters.version}
+            onChange={(e) =>
+              onFilterChange({ ...filters, version: e.target.value })
+            }
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+          >
+            <option value="all">All Versions</option>
+            {versions.map((version) => (
+              <option key={version} value={version.toString()}>
+                {version === 1
+                  ? "Up to Version 1 (ASE' 2025)"
+                  : `Up to Version ${version}`}
               </option>
             ))}
           </select>

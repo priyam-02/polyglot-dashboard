@@ -12,6 +12,14 @@ export function filterData(
       return false;
     if (filters.complexity !== "all" && item.complexity !== filters.complexity)
       return false;
+    if (filters.sourceLanguage !== "all" && item.source_language !== filters.sourceLanguage)
+      return false;
+    // Version filter: cumulative (version 2 includes v1 and v2)
+    if (filters.version !== "all") {
+      const selectedVersion = parseInt(filters.version);
+      const itemVersion = item.version || 1; // Default to version 1 if not specified
+      if (itemVersion > selectedVersion) return false;
+    }
     return true;
   });
 }

@@ -45,12 +45,16 @@ export default function Dashboard() {
     llm: "all",
     prompt: "all",
     complexity: "all",
+    sourceLanguage: "all",
+    version: "all",
   });
 
   const [languages, setLanguages] = useState<string[]>([]);
   const [llms, setLlms] = useState<string[]>([]);
   const [prompts, setPrompts] = useState<string[]>([]);
   const [complexities, setComplexities] = useState<string[]>([]);
+  const [sourceLanguages, setSourceLanguages] = useState<string[]>([]);
+  const [versions, setVersions] = useState<number[]>([]);
 
   useEffect(() => {
     // Load static metrics first (smaller payload - 324KB)
@@ -100,6 +104,16 @@ export default function Dashboard() {
           Array.from(new Set(benchmarkData.map((d) => d.prompt))).sort()
         );
         setComplexities(["simple", "moderate", "complex"]);
+        setSourceLanguages(
+          Array.from(
+            new Set(benchmarkData.map((d) => d.source_language))
+          ).sort()
+        );
+        setVersions(
+          Array.from(new Set(benchmarkData.map((d) => d.version || 1))).sort(
+            (a, b) => a - b
+          )
+        );
         setIsLoadingData(false);
       })
       .catch((error) => {
@@ -130,8 +144,7 @@ export default function Dashboard() {
           testFailRate: 0,
           testPassRate: 0,
         };
-  const llmPerformance =
-    data.length > 0 ? getLLMPerformance(filteredData) : [];
+  const llmPerformance = data.length > 0 ? getLLMPerformance(filteredData) : [];
   const complexityPerformance =
     data.length > 0 ? getComplexityPerformance(filteredData) : [];
   const languagePerformance =
@@ -148,6 +161,8 @@ export default function Dashboard() {
           llm: "all",
           prompt: "all",
           complexity: "all",
+          sourceLanguage: "all",
+          version: "all",
         })
       : [];
   const staticLanguageVariation =
@@ -157,6 +172,8 @@ export default function Dashboard() {
           llm: "all",
           prompt: "all",
           complexity: "all",
+          sourceLanguage: "all",
+          version: "all",
         })
       : [];
   const staticPromptVariation =
@@ -166,6 +183,8 @@ export default function Dashboard() {
           llm: "all",
           prompt: "all",
           complexity: "all",
+          sourceLanguage: "all",
+          version: "all",
         })
       : [];
 
@@ -212,13 +231,13 @@ export default function Dashboard() {
               className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 hover:text-blue-800 rounded-lg font-medium transition-all duration-200 border border-blue-200 hover:border-blue-300"
             >
               <span>📊</span>
-              <span>Results</span>
+              <span>Raw Data</span>
             </a>
             <span className="text-gray-400">|</span>
             <span className="text-gray-600 font-medium">Authors:</span>
             <div className="flex flex-wrap gap-x-3 gap-y-2">
               <a
-                href="https://www.linkedin.com/in/mvieira1975/"
+                href="https://mpvieira.github.io/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-700 hover:text-blue-800 font-medium transition-all duration-200 hover:underline decoration-2 underline-offset-2"
@@ -255,99 +274,24 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <div className="mb-6">
-            <p className="text-gray-700 leading-relaxed mb-3">
-              We did research on LLM-based code translation by taking{" "}
-              <strong className="text-gray-900">150 C programs</strong> and
-              translating them into{" "}
-              <strong className="text-gray-900">Python, Java, and Rust</strong>.
-              We worked with{" "}
-              <strong className="text-gray-900">
-                seven open-source models
-              </strong>{" "}
-              (<strong className="text-indigo-700">Llama</strong>,{" "}
-              <strong className="text-indigo-700">Qwen</strong>, and{" "}
-              <strong className="text-indigo-700">DeepSeek</strong> families)
-              and <strong className="text-gray-900">different prompts</strong>{" "}
-              (0-Shot, CoT) and varying problem complexities. You can filter the
-              data to explore the performance of each model.
+          <div>
+            <p className="text-gray-700 leading-relaxed pb-2">
+              This dashboard presents an interactive exploration of{" "}
+              <strong className="text-gray-900">Polyglot</strong>, a
+              multi-language framework for evaluating LLM performance in code
+              translation. Leveraging the IBM CodeNet Project dataset, we assess
+              translation quality through syntactic correctness, execution
+              reliability, and semantic preservation. Use the filters below to
+              explore how different models, prompting strategies, and problem
+              complexities impact translation success across multiple target
+              languages.
             </p>
-            <br />
-            <p className="text-gray-700 leading-relaxed font-semibold mb-2">
-              Here are few Key Insights:
-            </p>
-          </div>
-          <div className="space-y-2">
-            {staticLLMPerformance.length > 0 && (
-              <div className="flex items-start">
-                <span className="inline-block w-2 h-2 bg-gray-900 rounded-full mt-2 mr-3"></span>
-                <p className="text-gray-700">
-                  <strong>Best Performing LLM:</strong>{" "}
-                  {staticLLMPerformance[0].name} with{" "}
-                  {staticLLMPerformance[0].testPassRate.toFixed(2)}% test pass
-                  rate
-                </p>
-              </div>
-            )}
-            {staticLanguagePerformance.length > 0 && (
-              <div className="flex items-start">
-                <span className="inline-block w-2 h-2 bg-gray-900 rounded-full mt-2 mr-3"></span>
-                <p className="text-gray-700">
-                  <strong>Easiest Target Language:</strong>{" "}
-                  {staticLanguagePerformance[0].name} with{" "}
-                  {staticLanguagePerformance[0].testPassRate.toFixed(2)}%
-                  success rate
-                </p>
-              </div>
-            )}
-            {staticPromptPerformance.length > 0 &&
-              staticPromptVariation.length > 0 && (
-                <div className="flex items-start">
-                  <span className="inline-block w-2 h-2 bg-gray-900 rounded-full mt-2 mr-3"></span>
-                  <p className="text-gray-700">
-                    <strong>Most Effective Prompt Strategy:</strong>{" "}
-                    {staticPromptPerformance[0].name} achieves{" "}
-                    {staticPromptPerformance[0].testPassRate.toFixed(2)}% pass
-                    rate while producing{" "}
-                    {staticPromptVariation[0].deltaLOC > 0
-                      ? "longer"
-                      : "more concise"}{" "}
-                    code ({staticPromptVariation[0].deltaLOC > 0 ? "+" : ""}
-                    {staticPromptVariation[0].deltaLOC.toFixed(2)}Δ SLoC)
-                  </p>
-                </div>
-              )}
-            {staticComplexityPerformance.length > 0 &&
-              staticComplexityVariation.length > 0 && (
-                <div className="flex items-start">
-                  <span className="inline-block w-2 h-2 bg-gray-900 rounded-full mt-2 mr-3"></span>
-                  <p className="text-gray-700">
-                    <strong>Complexity Impact:</strong> Performance drops from{" "}
-                    {staticComplexityPerformance[0]?.testPassRate.toFixed(2)}%
-                    (simple) to{" "}
-                    {staticComplexityPerformance[2]?.testPassRate.toFixed(2)}%
-                    (complex), with simple problems showing greater cyclomatic
-                    complexity increase (
-                    {staticComplexityVariation[0]?.deltaCClog.toFixed(2)}Δ vs{" "}
-                    {staticComplexityVariation[2]?.deltaCClog.toFixed(2)}Δ)
-                  </p>
-                </div>
-              )}
-            {staticLanguageVariation.length > 0 && (
-              <div className="flex items-start">
-                <span className="inline-block w-2 h-2 bg-gray-900 rounded-full mt-2 mr-3"></span>
-                <p className="text-gray-700">
-                  <strong>Code Length Variation:</strong>{" "}
-                  {staticLanguageVariation[0].name} translations show{" "}
-                  {staticLanguageVariation[0].deltaLOC > 0
-                    ? "an increase"
-                    : "a decrease"}{" "}
-                  ({staticLanguageVariation[0].deltaLOC > 0 ? "+" : ""}
-                  {staticLanguageVariation[0].deltaLOC.toFixed(2)}Δ) in source
-                  lines of code
-                </p>
-              </div>
-            )}
+            <div className="mt-4 pt-4 border-t border-gray-200/60">
+              <p className="text-sm text-gray-600 italic flex items-center gap-2">
+                <span className="inline-block w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></span>
+                This is a living dataset — new results and analyses will be added soon. Check back regularly for updates!
+              </p>
+            </div>
           </div>
         </div>
 
@@ -362,6 +306,8 @@ export default function Dashboard() {
               llms={llms}
               prompts={prompts}
               complexities={complexities}
+              sourceLanguages={sourceLanguages}
+              versions={versions}
             />
           )}
         </div>
@@ -499,7 +445,10 @@ export default function Dashboard() {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <VariationByPromptChart data={promptVariation} filters={filters} />
+              <VariationByPromptChart
+                data={promptVariation}
+                filters={filters}
+              />
               <VariationByLLMChart data={llmVariation} filters={filters} />
             </div>
           </div>

@@ -22,6 +22,7 @@ export interface BenchmarkResult {
   log_cc: number | null;
   sloc_var: number | null;
   log_sloc: number | null;
+  version?: number;
 }
 
 export interface Filters {
@@ -29,6 +30,8 @@ export interface Filters {
   llm: string;
   prompt: string;
   complexity: string;
+  sourceLanguage: string;
+  version: string;
 }
 
 export interface MetricCard {
