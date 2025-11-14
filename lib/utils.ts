@@ -246,14 +246,14 @@ export function formatPromptName(name: string): string {
 }
 
 export function getSuccessColor(value: number): string {
-  if (value >= 60) return "text-green-600";
-  if (value >= 30) return "text-yellow-600";
-  return "text-red-600";
+  if (value >= 60) return "text-success-600";
+  if (value >= 30) return "text-warning-600";
+  return "text-danger-600";
 }
 
 export function getSuccessBgColor(value: number): string {
-  if (value >= 60) return "bg-green-100";
-  if (value >= 30) return "bg-yellow-100";
+  if (value >= 60) return "bg-emerald-100";
+  if (value >= 30) return "bg-amber-100";
   return "bg-red-100";
 }
 

@@ -230,7 +230,7 @@ export default function Dashboard() {
               href="https://conf.researchr.org/details/ase-2025/ase-2025-papers/89/Polyglot-An-Extensible-Framework-to-Benchmark-Code-Translation-with-LLMs"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 hover:text-blue-800 rounded-lg font-medium transition-all duration-200 border border-blue-200 hover:border-blue-300"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary-50 hover:bg-primary-100 text-primary-700 hover:text-primary-700 rounded-lg font-medium transition-all duration-200 border border-primary-200 hover:border-primary-300"
             >
               <span>📄</span>
               <span>Abstract</span>
@@ -240,7 +240,7 @@ export default function Dashboard() {
               href="https://figshare.com/s/555ff627c7b8944f4552"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 hover:text-blue-800 rounded-lg font-medium transition-all duration-200 border border-blue-200 hover:border-blue-300"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary-50 hover:bg-primary-100 text-primary-700 hover:text-primary-700 rounded-lg font-medium transition-all duration-200 border border-primary-200 hover:border-primary-300"
             >
               <span>📊</span>
               <span>Raw Data</span>
@@ -252,7 +252,7 @@ export default function Dashboard() {
                 href="https://mpvieira.github.io/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-700 hover:text-blue-800 font-medium transition-all duration-200 hover:underline decoration-2 underline-offset-2"
+                className="text-primary-700 hover:text-primary-700 font-medium transition-all duration-200 hover:underline decoration-2 underline-offset-2"
               >
                 Marco Vieira
               </a>
@@ -261,7 +261,7 @@ export default function Dashboard() {
                 href="https://www.linkedin.com/in/priyam-shah-software-developer/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-700 hover:text-blue-800 font-medium transition-all duration-200 hover:underline decoration-2 underline-offset-2"
+                className="text-primary-700 hover:text-primary-700 font-medium transition-all duration-200 hover:underline decoration-2 underline-offset-2"
               >
                 Priyam Shah
               </a>
@@ -270,7 +270,7 @@ export default function Dashboard() {
                 href="https://www.linkedin.com/in/bhavainshah/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-700 hover:text-blue-800 font-medium transition-all duration-200 hover:underline decoration-2 underline-offset-2"
+                className="text-primary-700 hover:text-primary-700 font-medium transition-all duration-200 hover:underline decoration-2 underline-offset-2"
               >
                 Bhavain Shah
               </a>
@@ -279,7 +279,7 @@ export default function Dashboard() {
                 href="https://www.linkedin.com/in/rrezartakrasniqi/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-700 hover:text-blue-800 font-medium transition-all duration-200 hover:underline decoration-2 underline-offset-2"
+                className="text-primary-700 hover:text-primary-700 font-medium transition-all duration-200 hover:underline decoration-2 underline-offset-2"
               >
                 Rrezarta Krasniqi
               </a>
@@ -300,7 +300,7 @@ export default function Dashboard() {
             </p>
             <div className="mt-4 pt-4 border-t border-gray-200/60">
               <p className="text-sm text-gray-600 italic flex items-center gap-2">
-                <span className="inline-block w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></span>
+                <span className="inline-block w-1.5 h-1.5 bg-primary-500 rounded-full animate-pulse"></span>
                 This is a living dataset — new results and analyses will be
                 added soon. Check back regularly for updates!
               </p>
@@ -433,7 +433,7 @@ export default function Dashboard() {
           </p>
           <div className="pt-4 border-t border-gray-200/60">
             <p className="text-sm text-gray-600 italic flex items-center gap-2">
-              <span className="inline-block w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></span>
+              <span className="inline-block w-1.5 h-1.5 bg-primary-500 rounded-full animate-pulse"></span>
               Metrics and charts in this section use pre-aggregated data across all versions. Version filter applies only to Performance Analysis above.
             </p>
           </div>

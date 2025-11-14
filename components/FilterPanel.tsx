@@ -60,7 +60,7 @@ export default function FilterPanel({
         <h2 className="text-xl font-bold text-gray-900">Filters</h2>
         <button
           onClick={handleReset}
-          className="text-sm text-purple-600 hover:text-purple-800 font-semibold transition-colors px-4 py-2 rounded-lg hover:bg-purple-50"
+          className="text-sm text-primary-600 hover:text-primary-700 font-semibold transition-colors px-4 py-2 rounded-lg hover:bg-primary-50"
         >
           Reset All
         </button>
@@ -76,7 +76,7 @@ export default function FilterPanel({
             onChange={(e) =>
               onFilterChange({ ...filters, sourceLanguage: e.target.value })
             }
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white"
           >
             <option value="all">All Source Languages</option>
             {sourceLanguages.map((lang) => (
@@ -96,7 +96,7 @@ export default function FilterPanel({
             onChange={(e) =>
               onFilterChange({ ...filters, language: e.target.value })
             }
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white"
           >
             <option value="all">All Languages</option>
             {languages.map((lang) => (
@@ -116,7 +116,7 @@ export default function FilterPanel({
             onChange={(e) =>
               onFilterChange({ ...filters, llm: e.target.value })
             }
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white"
           >
             <option value="all">All Models</option>
             {llms.map((llm) => (
@@ -136,7 +136,7 @@ export default function FilterPanel({
             onChange={(e) =>
               onFilterChange({ ...filters, prompt: e.target.value })
             }
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white"
           >
             <option value="all">All Prompts</option>
             {prompts.map((prompt) => (
@@ -156,7 +156,7 @@ export default function FilterPanel({
             onChange={(e) =>
               onFilterChange({ ...filters, complexity: e.target.value })
             }
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white"
           >
             <option value="all">All Complexities</option>
             {complexities.map((complexity) => (
@@ -176,7 +176,7 @@ export default function FilterPanel({
             onChange={(e) =>
               onFilterChange({ ...filters, version: e.target.value })
             }
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white"
           >
             <option value="all">All Versions</option>
             {versions.map((version) => (

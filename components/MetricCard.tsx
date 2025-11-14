@@ -21,9 +21,9 @@ export default function MetricCard({ title, value, description, percentage, isFa
     }
 
     // For success metrics: higher is better (normal colors)
-    if (pct >= 60) return 'text-green-600';
-    if (pct >= 30) return 'text-yellow-600';
-    return 'text-red-600';
+    if (pct >= 60) return 'text-success-600';
+    if (pct >= 30) return 'text-warning-600';
+    return 'text-danger-600';
   };
 
   const colorClass = getColorClass(percentage, isFailureMetric);

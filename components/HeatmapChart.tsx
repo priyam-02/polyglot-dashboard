@@ -9,10 +9,10 @@ export default function HeatmapChart({ data }: HeatmapChartProps) {
   const languages = Array.from(new Set(data.map((d) => d.language)));
 
   const getColor = (value: number) => {
-    if (value >= 60) return "bg-green-500";
-    if (value >= 40) return "bg-yellow-400";
+    if (value >= 60) return "bg-success-500";
+    if (value >= 40) return "bg-warning-400";
     if (value >= 20) return "bg-orange-400";
-    return "bg-red-500";
+    return "bg-danger-500";
   };
 
   const getValue = (llm: string, language: string) => {
@@ -74,11 +74,11 @@ export default function HeatmapChart({ data }: HeatmapChartProps) {
       <div className="mt-4 flex items-center justify-center gap-4 text-xs">
         <span className="font-semibold">Legend:</span>
         <div className="flex items-center gap-1">
-          <div className="w-4 h-4 bg-green-500"></div>
+          <div className="w-4 h-4 bg-success-500"></div>
           <span>60%+</span>
         </div>
         <div className="flex items-center gap-1">
-          <div className="w-4 h-4 bg-yellow-400"></div>
+          <div className="w-4 h-4 bg-warning-400"></div>
           <span>40-60%</span>
         </div>
         <div className="flex items-center gap-1">
@@ -86,7 +86,7 @@ export default function HeatmapChart({ data }: HeatmapChartProps) {
           <span>20-40%</span>
         </div>
         <div className="flex items-center gap-1">
-          <div className="w-4 h-4 bg-red-500"></div>
+          <div className="w-4 h-4 bg-danger-500"></div>
           <span>&lt;20%</span>
         </div>
       </div>
