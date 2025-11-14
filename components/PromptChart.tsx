@@ -28,20 +28,20 @@ export default function PromptChart({ data, filters }: PromptChartProps) {
         <div className="flex gap-2">
           <button
             onClick={() => setChartType('grouped')}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
               chartType === 'grouped'
-                ? 'bg-indigo-600 text-white'
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                ? 'bg-primary-600 text-white shadow-md hover:shadow-lg'
+                : 'bg-gray-200 text-gray-700 hover:bg-gray-300 shadow-sm hover:shadow-md'
             }`}
           >
             Grouped
           </button>
           <button
             onClick={() => setChartType('stacked')}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
               chartType === 'stacked'
-                ? 'bg-indigo-600 text-white'
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                ? 'bg-primary-600 text-white shadow-md hover:shadow-lg'
+                : 'bg-gray-200 text-gray-700 hover:bg-gray-300 shadow-sm hover:shadow-md'
             }`}
           >
             Stacked
